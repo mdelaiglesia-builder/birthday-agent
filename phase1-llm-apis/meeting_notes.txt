@@ -1,0 +1,24 @@
+Product Sync - Sept 3
+
+Attendees: Laura, Diego, Priya, Matías
+
+Laura kicked off with an update on the onboarding flow redesign — user testing
+showed people dropping off at the payment step. We agreed this needs a fix
+before the next release. Diego said he'd look into simplifying the payment
+form and get a mockup ready by Friday.
+
+Priya raised that the API docs are out of date, especially the auth section.
+Nobody owns that right now, we just agreed someone needs to update it soon.
+
+Discussed the Q4 roadmap briefly, no decisions made, revisit next week.
+
+Matías will follow up with the support team about the spike in refund
+requests — we don't have a root cause yet. He's aiming to have an initial
+read by Wednesday.
+
+Also: Laura mentioned the staging environment has been flaky all week and
+asked if anyone could take a look. Diego said he'd poke at it after the
+payment form work.
+
+Last thing — we should send a summary of this meeting to the wider team,
+Priya offered to do that today.
