@@ -1,30 +1,25 @@
+import os
+
+import chromadb
+
 from chunk_document import chunk_document
 from embed_chunks import embed_chunks
 from store_chunks import store_chunks
-import argparse
-import chromadb
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
+KB_PATH = os.path.join(os.path.dirname(__file__), "juan_birthday_notes.md")
 
-parser = argparse.ArgumentParser(description="KB of Juan's birthday")
-parser.add_argument("filepath", help="Path to the file of the KB")
-args = parser.parse_args()
 
-def check(name, condition):
-    status = "PASS" if condition else "FAIL"
-    print(f"[{status}] {name}")
-
-try:
-    with open(args.filepath) as f:
+def test_store_chunks_on_real_kb():
+    with open(KB_PATH) as f:
         content = f.read()
-        chunks = chunk_document(content)
-        embeddings = embed_chunks(chunks, "documentp")
-        store_chunks(chunks, embeddings)
-        client = chromadb.CloudClient(os.environ["CHROMA_TENANT"], os.environ["CHROMA_DATABASE"], os.environ["CHROMA_API_KEY"])
-        collection = client.get_or_create_collection(name="juan_birthday_kb")
-        check("Size of collection is the same as chunks", collection.count() == len(chunks))
+    chunks = chunk_document(content)
+    embeddings = embed_chunks(chunks, "document")
+    store_chunks(chunks, embeddings)
 
-except FileNotFoundError:
-    print(f"Error: file '{args.filepath}' not found.")
+    client = chromadb.CloudClient(
+        tenant=os.environ["CHROMA_TENANT"],
+        database=os.environ["CHROMA_DATABASE"],
+        api_key=os.environ["CHROMA_API_KEY"],
+    )
+    collection = client.get_or_create_collection(name="juan_birthday_kb")
+    assert collection.count() == len(chunks)

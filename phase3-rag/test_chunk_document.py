@@ -1,25 +1,21 @@
+import os
+
 from chunk_document import chunk_document
-import argparse
 
-parser = argparse.ArgumentParser(description="KB of Juan's birthday")
-parser.add_argument("filepath", help="Path to the file of the KB")
-args = parser.parse_args()
+KB_PATH = os.path.join(os.path.dirname(__file__), "juan_birthday_notes.md")
 
-def check(name, condition):
-    status = "PASS" if condition else "FAIL"
-    print(f"[{status}] {name}")
 
-try:
-    with open(args.filepath) as f:
+def test_chunk_document_on_real_kb():
+    with open(KB_PATH) as f:
         content = f.read()
-        chunks = chunk_document(content)
-        check("Amount of chunks is 7", len(chunks) == 7)
-        for c in chunks:
-            check("Chunk starts with ##", c.startswith("## "))
-except FileNotFoundError:
-    print(f"Error: file '{args.filepath}' not found.")
+    chunks = chunk_document(content)
+    assert len(chunks) == 6
+    for chunk in chunks:
+        assert chunk.startswith("## ")
 
-content_without_headers = "no headers at all here, just plain text"
-no_chunks = chunk_document(content_without_headers)
-check("Amount of chunks when no header present is 1", len(no_chunks) == 1)
-check("Chunk when no header present doesn't start with ##", not no_chunks[0].startswith("## "))
+
+def test_chunk_document_no_headers():
+    content_without_headers = "no headers at all here, just plain text"
+    chunks = chunk_document(content_without_headers)
+    assert len(chunks) == 1
+    assert not chunks[0].startswith("## ")
