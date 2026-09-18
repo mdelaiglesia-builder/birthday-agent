@@ -35,7 +35,6 @@ def extract_action_items(notes_text: str) -> list[dict]:
         max_tokens=1024,
         tools=tools,
         tool_choice={"type": "tool", "name": "extract_meeting_action_items"},
-        temperature=0,
         system="Extract action items from the meeting notes.",
         messages=[
             {"role": "user", "content": notes_text}
