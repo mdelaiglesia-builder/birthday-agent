@@ -5,7 +5,7 @@ from judge import judge
 from retrieval import retrieval
 
 
-def test_generation_and_judge_grounded_for_parking_question():
+def test_generation_and_judge_grounded_for_parking_question(voyage_pacing):
     query = "where's parking?"
     chunks_retrieved = retrieval(query)
     generation_response: dict[str, Any] = generation(query, chunks_retrieved)

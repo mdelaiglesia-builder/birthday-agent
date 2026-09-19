@@ -6,7 +6,7 @@ from embed_chunks import embed_chunks
 KB_PATH = os.path.join(os.path.dirname(__file__), "juan_birthday_notes.md")
 
 
-def test_embed_chunks_on_real_kb():
+def test_embed_chunks_on_real_kb(voyage_pacing):
     with open(KB_PATH) as f:
         content = f.read()
     chunks = chunk_document(content)

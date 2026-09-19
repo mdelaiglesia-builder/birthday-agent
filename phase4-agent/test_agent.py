@@ -50,7 +50,7 @@ load_dotenv()
 #         set_guest_status("Tomás Roselli", original_status)
 
 @pytest.mark.asyncio
-async def test_answer_from_rag_grounded():
+async def test_answer_from_rag_grounded(voyage_pacing):
     messages = [{"role": "user", "content": "where do people park?"}]
     agent = await orchestrator.build_orchestrator_agent()
     response = await agent.run(messages)

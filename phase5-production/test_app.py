@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 from app import app
 
-def test_ask_routes_to_event_subagent():
+def test_ask_routes_to_event_subagent(voyage_pacing):
     client = TestClient(app)
     response = client.post("/ask", json={"message": "where do I park?"})
     assert response.status_code == 200
