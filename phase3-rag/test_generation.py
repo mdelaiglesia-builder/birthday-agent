@@ -1,10 +1,12 @@
 from typing import Any
+import pytest
 
 from generation import generation
 from judge import judge
 from retrieval import retrieval
 
 
+@pytest.mark.skip(reason="Requires a real Voyage AI API call; the free tier's 3 RPM limit makes this unreliable in CI even with the voyage_pacing fixture's spacing (see conftest.py). Skipped rather than paced -- unskip locally to verify against the real API.")
 def test_generation_and_judge_grounded_for_parking_question(voyage_pacing):
     query = "where's parking?"
     chunks_retrieved = retrieval(query)

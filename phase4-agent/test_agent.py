@@ -49,6 +49,7 @@ load_dotenv()
 #     finally:
 #         set_guest_status("Tomás Roselli", original_status)
 
+@pytest.mark.skip(reason="Requires a real Voyage AI API call; the free tier's 3 RPM limit makes this unreliable in CI even with the voyage_pacing fixture's spacing (see conftest.py). Skipped rather than paced -- unskip locally to verify against the real API.")
 @pytest.mark.asyncio
 async def test_answer_from_rag_grounded(voyage_pacing):
     messages = [{"role": "user", "content": "where do people park?"}]
